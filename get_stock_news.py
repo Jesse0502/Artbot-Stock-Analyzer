@@ -14,26 +14,16 @@ def getSearch(query, CountryCode, lim):
         'div', class_='NiLAwe y6IFtc R7GTQ keNKEd j7vNaf nID9nc')
     allNews = []
 
-    for block in newsBlock:
-        headingText = block.find(
-            'article', class_="MQsxIb xTewfe R7GTQ keNKEd j7vNaf Cc0Z5d EjqUne").h3.a.text
-        linkToSource = block.find("a", target="_blank")[
-            'href'].replace(".", origin)
-        source = block.find(
-            'article', class_="MQsxIb xTewfe R7GTQ keNKEd j7vNaf Cc0Z5d EjqUne").div.div.a.text
-        timeBlock = block.find(
-            'article', class_="MQsxIb xTewfe R7GTQ keNKEd j7vNaf Cc0Z5d EjqUne").div.div.time
-        if timeBlock != None:
-            time = block.find(
-                'article', class_="MQsxIb xTewfe R7GTQ keNKEd j7vNaf Cc0Z5d EjqUne").div.div.time['datetime']
-        else:
-            time = ""
-        if len(allNews) < lim:
+    for idx, block in enumerate(newsBlock):
+        if idx >= lim:
+            headingText = block.find(
+                'article', class_="MQsxIb xTewfe R7GTQ keNKEd j7vNaf Cc0Z5d EjqUne").h3.a.text
+            linkToSource = block.find("a", target="_blank")[
+                'href'].replace(".", origin)
+            
             allNews.append({
-                "Heading": headingText,
-                "Link": short.short(linkToSource),
-                "Source": source,
-                "Time": time,
+                    "Heading": headingText,
+                    "Link": short.short(linkToSource),
             })
 
     return allNews

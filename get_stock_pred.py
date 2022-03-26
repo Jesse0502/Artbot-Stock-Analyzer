@@ -38,9 +38,11 @@ def get_resonse_from_api(param):
         
         for t in dat["recommendationTrend"]["trend"]:
             rec["buy"] = (rec["buy"] + t["buy"]) 
-            rec["hold"] = (rec["hold"] + t["hold"]) 
+            rec["hold"] = (rec["hold"] + t["hold"])
             rec["sell"] = (rec["sell"] + t["sell"])
-            
+        
+        pprint(rec)
+        
         for e in dat["earnings"]["financialsChart"]["yearly"]:
             y_earnings.append({
                 "year": e["date"],
@@ -63,7 +65,6 @@ def get_resonse_from_api(param):
             "country": dat["summaryProfile"]["country"],
             "industry": dat["summaryProfile"]["industry"]
         }
-        pprint(result)
         return f"""
     
 *Here's some data I found on* ***{result["name"]} ({result["symbol"]})*** 🤔

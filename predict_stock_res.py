@@ -29,7 +29,7 @@ def predict_stock_res(avt):
         keywords = ""
         noun = ""
         adj = ""
-        print("inside")
+
         for key in res["keywords"]:
             for n in nlp(key["keyword"]):
                 print(n.pos_, n)
@@ -41,7 +41,7 @@ def predict_stock_res(avt):
                     adj = n.text
             
         stock_prediction = match_keywords_with_industry(keywords)
-        random_num = round(random() * 20)
+        random_num = round(random() * 4)
         if random_num % 2 == 0:
             cmt = comment_about(adj, noun)
         else:
@@ -66,9 +66,8 @@ def comment_about(adj, noun):
     response = openai.Completion.create(
     engine="text-davinci-002",
     prompt=f"Say something to me about my {adj} {noun} in my profile picture",
-    temperature=0.9,
+    temperature=1,
     max_tokens=20,
     )
 
-    # pprint(response['choices'][0]['text'])
     return f'{response["choices"][0]["text"]} '

@@ -27,9 +27,9 @@ def check_sim(stm):
         if nlp(stm.lower()).similarity(i["base"]) > max_till_now["val"]:
             max_till_now = {"val": nlp(stm).similarity(
                 i["base"]), "nlp": cond_nlp[ind]}
-            
+        
     print("max_till_now", max_till_now)
-    if max_till_now["val"] >= 0.65:
+    if max_till_now["val"] > 0.65:
         return max_till_now
     else:
         print("in chooose else")
@@ -38,20 +38,20 @@ def check_sim(stm):
 def choose_res(stm, author):
     if "-help" in stm:
         return help_res()
-    if "-suggest" in stm:
+    elif "-suggest" in stm:
         return predict_res(author)
     res = check_sim(stm)
     if res["nlp"] == cond_nlp[0]:
         return org_res(stm)
-    if res["nlp"] == cond_nlp[1]:
+    elif res["nlp"] == cond_nlp[1]:
         return greet_res()
-    if res["nlp"] == cond_nlp[2]:
+    elif res["nlp"] == cond_nlp[2]:
         return welcome_res()
-    if res["nlp"] == cond_nlp[3]:
+    elif res["nlp"] == cond_nlp[3]:
         return how_ques_res()
-    if res["nlp"] == cond_nlp[4]:
+    elif res["nlp"] == cond_nlp[4]:
         return who_made()
-    if res['nlp'] == cond_nlp[5]:
+    elif res['nlp'] == cond_nlp[5]:
         return your_name_res()
     else:
         return default_res()
