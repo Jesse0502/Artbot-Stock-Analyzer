@@ -29,7 +29,13 @@ def main():
                 msg = "".join(re.split("<@!\d\d\d\d\d\d\d\d\d\d\d\d\d\d\d\d\d\d>", content))
                 await message.channel.trigger_typing()
                 res = choose_res(msg, avt)
-                await message.channel.send(f'{message.author.mention} {res}')
+                print(res, type(res))
+                if type(res) == type('str'):
+                    await message.channel.send(f'{message.author.mention} {res}')
+                else:
+                # discord.File('fig.png')
+                    await message.channel.send(f"{message.author.mention} {res['txt']}", file=discord.File("fig.png"))
+                # await message.uploadFile
 
     client.run(TOKEN)
     

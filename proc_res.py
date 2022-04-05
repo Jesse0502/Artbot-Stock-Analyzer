@@ -2,7 +2,7 @@ import spacy
 from get_stock_pred import get_stock_pred
 from random import random
 from constants import response_how_ques_res, welcome_txts, greeting
-from predict_stock_res import predict_stock_res
+from predict_stock_res import stock_info_res
 
 nlp = spacy.load('en_core_web_lg')
 
@@ -59,8 +59,8 @@ eg - `Should I buy AAPL stock?` or `Is KO a good buy?`
 I can make a suggestion based of your pfp what industry should be in your portfolio. Just type `-suggest`
     """
     
-def predict_res(avt):
-    stock = predict_stock_res(avt)
+def suggest_res(avt):
+    stock = stock_info_res(avt)
     if not stock["stock"] == None:
         if not stock['cmt'] == None:
             print(f"**{stock['stock']['stock']}**{stock['cmt']}")
@@ -72,3 +72,9 @@ def predict_res(avt):
     else:
         return "I Couldn't find any stocks based of your pfp. Maybe cuz it's empty?"
     
+def predict_res(stm):
+    splitMsg = stm.split()
+    ticker = splitMsg[1]
+    yrs = splitMsg[2]
+    # predict_stock_trend(ticker, yrs)
+    return ""

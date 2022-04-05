@@ -15,7 +15,7 @@ openai.api_key = os.getenv('OPEN_AI_TOKEN')
 client_id = os.getenv('EVERYPIXEL_CLIENT_ID')
 secret = os.getenv('EVERYPIXEL_SECRET')
 
-def predict_stock_res(avt):
+def stock_info_res(avt):
     
     url = str(avt)
     print(url)

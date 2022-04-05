@@ -1,15 +1,21 @@
 import spacy
-from proc_res import default_res, greet_res, help_res, how_ques_res, org_res, welcome_res, who_made, your_name_res, predict_res
+from proc_res import default_res, greet_res, help_res, how_ques_res, org_res, welcome_res, who_made, your_name_res, suggest_res, predict_res
 
 nlp = spacy.load('en_core_web_lg')
 
 nlps = [
-    {"base": nlp("should i buy, is stock a good stock purchase, is a good stock, good pick")},  # stock prediction
-    {"base": nlp("hello, howdy")},  # greetings
-    {"base": nlp("welcome")},  # welcoming msg
-    {"base": nlp("how are you, how is it going, sup, wassup, have you been")},  # ask how you're doing
-    {"base": nlp("who made you, who's your owner, JS_Artboy, artboy")}, # who made
-    {"base": nlp("what is your name, what called, should I call")}, # ask name
+    # stock prediction
+    {"base": nlp("should i buy, is stock a good stock purchase, is a good stock, good pick")},
+     # greetings
+    {"base": nlp("hello, howdy")},
+    # welcoming msg 
+    {"base": nlp("welcome")}, 
+    # ask how you're doing
+    {"base": nlp("how are you, how is it going, sup, wassup, have you been")},
+    # who made  
+    {"base": nlp("who made you, who's your owner, JS_Artboy, artboy")}, 
+    # ask name
+    {"base": nlp("what is your name, what called, should I call")}, 
 ]
 
 cond_nlp = [
@@ -39,6 +45,8 @@ def choose_res(stm, author):
     if "-help" in stm:
         return help_res()
     elif "-suggest" in stm:
+        return suggest_res(author)
+    elif "-predict" in stm:
         return predict_res(author)
     res = check_sim(stm)
     if res["nlp"] == cond_nlp[0]:
