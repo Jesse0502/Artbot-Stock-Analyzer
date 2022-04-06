@@ -1,10 +1,12 @@
 import spacy
-from get_stock_pred import get_stock_pred
+from get_stock_info import get_stock_pred
 from random import random
 from constants import response_how_ques_res, welcome_txts, greeting
 from predict_stock_res import stock_info_res
+from compare_stock_data import compare_stock_data
 
-nlp = spacy.load('en_core_web_lg')
+# nlp = spacy.load('en_core_web_lg')
+nlp = spacy.load('en_core_web_md')
 
 def org_res(stm):
     org_arr = []
@@ -78,3 +80,12 @@ def predict_res(stm):
     yrs = splitMsg[2]
     # predict_stock_trend(ticker, yrs)
     return ""
+
+def comapre_stocks(stm):
+    split = stm.split()
+    all_stocks = split[1:]
+    stocks = set(all_stocks)
+    if len(stocks) < 1:
+        return "You need to provide aleast two stock tickers to compare!"
+    res = compare_stock_data(stocks)
+    return res

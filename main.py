@@ -23,19 +23,15 @@ def main():
         if client.user.mentioned_in(message):
 
             print(message.channel.name)
-            if message.channel.name == 'bot-testing':
-                avt = message.author.avatar_url
-                content = message.content.strip()
-                msg = "".join(re.split("<@!\d\d\d\d\d\d\d\d\d\d\d\d\d\d\d\d\d\d>", content))
-                await message.channel.trigger_typing()
-                res = choose_res(msg, avt)
-                print(res, type(res))
-                if type(res) == type('str'):
-                    await message.channel.send(f'{message.author.mention} {res}')
-                else:
-                # discord.File('fig.png')
-                    await message.channel.send(f"{message.author.mention} {res['txt']}", file=discord.File("fig.png"))
-                # await message.uploadFile
+            avt = message.author.avatar_url
+            content = message.content.strip()
+            msg = "".join(re.split("<@\d\d\d\d\d\d\d\d\d\d\d\d\d\d\d\d\d\d>", content))
+            await message.channel.trigger_typing()
+            res = choose_res(msg, avt)
+            if type(res) == type('str'):
+                await message.channel.send(f'{message.author.mention} {res}')
+            else:
+                await message.channel.send(f"{message.author.mention} {res['txt']}", file=discord.File("fig.png"))
 
     client.run(TOKEN)
     

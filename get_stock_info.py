@@ -67,7 +67,7 @@ def get_resonse_from_api(param):
         
         img = open('fig.png', 'r')
         
-        START = "2015-01-01"
+        START = "2017-01-01"
         TODAY = date.today().strftime("%Y-%m-%d")
     
         df = yf.download(result['symbol'], START, TODAY)
