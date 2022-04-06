@@ -1,4 +1,3 @@
-from pprint import pprint
 from random import random
 import requests
 from dotenv import load_dotenv
@@ -9,7 +8,7 @@ import openai
 
 load_dotenv()
 
-nlp = spacy.load('en_core_web_md')
+nlp = spacy.load('en_core_web_lg')
 
 openai.api_key = os.getenv('OPEN_AI_TOKEN')
 client_id = os.getenv('EVERYPIXEL_CLIENT_ID')
@@ -18,7 +17,6 @@ secret = os.getenv('EVERYPIXEL_SECRET')
 def stock_info_res(avt):
     
     url = str(avt)
-    print(url)
     params = {'url': url, 'num_keywords': 10}
     fetch = requests.get('https://api.everypixel.com/v1/keywords',
                          params=params, auth=(client_id, secret))
@@ -32,7 +30,6 @@ def stock_info_res(avt):
 
         for key in res["keywords"]:
             for n in nlp(key["keyword"]):
-                print(n.pos_, n)
                 if n.pos_ == "NOUN":
                     keywords = (keywords + " " + n.text).strip()
                 if n.pos_ == "NOUN" and not noun:
@@ -46,10 +43,8 @@ def stock_info_res(avt):
             cmt = comment_about(adj, noun)
         else:
             cmt = None
-        print({"stock": stock_prediction, "cmt": cmt})
         return {"stock": stock_prediction, "cmt": cmt}
     else:
-        print("inside else")
         return None
 
 

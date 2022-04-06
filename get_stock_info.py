@@ -1,4 +1,3 @@
-from pprint import pprint
 from requests import get
 from dotenv import load_dotenv
 import yfinance as yf
@@ -11,7 +10,6 @@ plt.style.use('ggplot')
 
 def get_stock_pred(param):
     if not param == None:
-        print(f'get_stock_pred {param}')
         res = get_resonse_from_api(str(param))
         return res
     else:
@@ -19,11 +17,9 @@ def get_stock_pred(param):
 
 
 def get_resonse_from_api(param):
-    print("inside get_resonse_from_api", type(param))
     res = get("https://yh-finance.p.rapidapi.com/stock/v2/get-summary", headers={'x-rapidapi-host': 'yh-finance.p.rapidapi.com',
 
     'x-rapidapi-key': '9aa35d4502mshb4b1998a9a28115p1df00ejsn6edba7b9494d'}, params={'symbol': param})
-    print(res.status_code, res.reason)
     if res.status_code == 200:
         dat = res.json()
         
@@ -40,7 +36,6 @@ def get_resonse_from_api(param):
             rec["hold"] = (rec["hold"] + t["hold"])
             rec["sell"] = (rec["sell"] + t["sell"])
         
-        pprint(rec)
         
         for e in dat["earnings"]["financialsChart"]["yearly"]:
             y_earnings.append({
@@ -71,7 +66,6 @@ def get_resonse_from_api(param):
         TODAY = date.today().strftime("%Y-%m-%d")
     
         df = yf.download(result['symbol'], START, TODAY)
-        print(np.array(df['Close']))
         plt.figure(figsize=(16,8))
         plt.title(f'Close Price History - {result["name"]} ({result["symbol"]})', fontsize=18)
         plt.plot(df['Close'])

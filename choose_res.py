@@ -1,7 +1,7 @@
 import spacy
 from proc_res import default_res, greet_res, help_res, how_ques_res, org_res, welcome_res, who_made, your_name_res, suggest_res, predict_res, comapre_stocks
 
-nlp = spacy.load('en_core_web_md')
+nlp = spacy.load('en_core_web_lg')
 
 nlps = [
     # stock prediction
@@ -34,11 +34,9 @@ def check_sim(stm):
             max_till_now = {"val": nlp(stm).similarity(
                 i["base"]), "nlp": cond_nlp[ind]}
         
-    print("max_till_now", max_till_now)
     if max_till_now["val"] > 0.54:
         return max_till_now
     else:
-        print("in chooose else")
         return {"val": -1, "nlp": None}
 
 def choose_res(stm, author):

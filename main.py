@@ -21,8 +21,6 @@ def main():
             return
 
         if client.user.mentioned_in(message):
-
-            print(message.channel.name)
             avt = message.author.avatar_url
             content = message.content.strip()
             msg = "".join(re.split("<@\d\d\d\d\d\d\d\d\d\d\d\d\d\d\d\d\d\d>", content))

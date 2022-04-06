@@ -5,15 +5,13 @@ from constants import response_how_ques_res, welcome_txts, greeting
 from predict_stock_res import stock_info_res
 from compare_stock_data import compare_stock_data
 
-# nlp = spacy.load('en_core_web_lg')
-nlp = spacy.load('en_core_web_md')
+nlp = spacy.load('en_core_web_lg')
 
 def org_res(stm):
     org_arr = []
     for ent in nlp(stm.upper()).ents:
         if ent.label_ == 'ORG':
             org_arr.append(ent)
-    print(org_arr)
     if len(org_arr) == 0:
         beta_search = stm.split(" ")
         for w in beta_search:
@@ -58,17 +56,17 @@ def help_res():
 You can ask me if a stock is a good purchase    
 eg - `Should I buy AAPL stock?` or `Is KO a good buy?`
 
-I can make a suggestion based of your pfp what industry should be in your portfolio. Just type `-suggest`
+Or ask me to compare between stocks just tag me type `-compare [TICKER 1] [TICKER 2]` 
+
+I can also make a suggestion based of your pfp what industry should include in your portfolio. Just type `-suggest`
     """
     
 def suggest_res(avt):
     stock = stock_info_res(avt)
     if not stock["stock"] == None:
         if not stock['cmt'] == None:
-            print(f"**{stock['stock']['stock']}**{stock['cmt']}")
             return f"**{stock['stock']['stock']}**{stock['cmt']}"
         else:
-            print(f"**{stock['stock']['stock']}**")
             return f"**{stock['stock']['stock']}**"
             
     else:
