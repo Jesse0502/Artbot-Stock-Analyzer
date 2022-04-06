@@ -8,7 +8,7 @@ import openai
 
 load_dotenv()
 
-nlp = spacy.load('en_core_web_lg')
+nlp = spacy.load('en_core_web_md')
 
 openai.api_key = os.getenv('OPEN_AI_TOKEN')
 client_id = os.getenv('EVERYPIXEL_CLIENT_ID')

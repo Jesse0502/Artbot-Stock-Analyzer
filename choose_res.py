@@ -1,7 +1,7 @@
 import spacy
 from proc_res import default_res, greet_res, help_res, how_ques_res, org_res, welcome_res, who_made, your_name_res, suggest_res, predict_res, comapre_stocks
 
-nlp = spacy.load('en_core_web_lg')
+nlp = spacy.load('en_core_web_md')
 
 nlps = [
     # stock prediction

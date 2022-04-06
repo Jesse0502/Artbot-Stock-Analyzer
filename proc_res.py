@@ -5,7 +5,7 @@ from constants import response_how_ques_res, welcome_txts, greeting
 from predict_stock_res import stock_info_res
 from compare_stock_data import compare_stock_data
 
-nlp = spacy.load('en_core_web_lg')
+nlp = spacy.load('en_core_web_md')
 
 def org_res(stm):
     org_arr = []
