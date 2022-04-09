@@ -5,7 +5,7 @@ plt.style.use('ggplot')
 
 def compare_stock_data(stocks):
     plt.figure(figsize=(16,8))
-    plt.title(f'Close Price History)', fontsize=18)
+    plt.title(f'Close Price History', fontsize=18)
     
     stock_arr = []
     legends = []

@@ -25,41 +25,43 @@ def get_resonse_from_api(param):
     'x-rapidapi-key': TOKEN}, params={'symbol': param})
     if res.status_code == 200:
         dat = res.json()
-        
         rec = {
             "buy": 1,
             "hold": 1,
             "sell": 1
         }
-        
+        if "recommendationTrend" in dat:
+            for t in dat["recommendationTrend"]["trend"]:
+                rec["buy"] = (rec["buy"] + t["buy"]) 
+                rec["hold"] = (rec["hold"] + t["hold"])
+                rec["sell"] = (rec["sell"] + t["sell"])
+        else:
+            rec["buy"] = '*No data found*'
+            rec["hold"] = '*No data found*'
+            rec["sell"] = '*No data found*'
         y_earnings = []
-        
-        for t in dat["recommendationTrend"]["trend"]:
-            rec["buy"] = (rec["buy"] + t["buy"]) 
-            rec["hold"] = (rec["hold"] + t["hold"])
-            rec["sell"] = (rec["sell"] + t["sell"])
-        
-        
-        for e in dat["earnings"]["financialsChart"]["yearly"]:
-            y_earnings.append({
-                "year": e["date"],
-                "revenue": e["revenue"]["fmt"]
-            })
+        if "earnings" in dat:
+            for e in dat["earnings"]["financialsChart"]["yearly"]:
+                y_earnings.append({
+                    "year": e["date"],
+                    "revenue": e["revenue"]["fmt"]
+                })
+        notFound = "No data found\t"
         result = {
             "name": dat["price"]["longName"],
             "symbol": dat["symbol"],
             "trend": rec,
-            "currentPrice": dat["price"]["regularMarketOpen"]["fmt"],
-            "currency": dat['price']["currencySymbol"],
-            "previousClose": dat["summaryDetail"]["previousClose"]["fmt"],
+            "currentPrice": dat["price"]["regularMarketOpen"].get("fmt", notFound),
+            "currency": dat['price'].get("currencySymbol", notFound),
+            "previousClose": dat["summaryDetail"].get("previousClose", {}).get("fmt", notFound),
             "yearly_earning": y_earnings,
             "financial": {
-                "profitMargins": dat["defaultKeyStatistics"]["profitMargins"]["fmt"],
-                "52WeekChange": dat["defaultKeyStatistics"]["52WeekChange"]["fmt"],
-                "sharesShort": dat["defaultKeyStatistics"]["sharesPercentSharesOut"]["fmt"],
+                "profitMargins": dat["defaultKeyStatistics"].get("profitMargins", {}).get("fmt", notFound),
+                "52WeekChange": dat["defaultKeyStatistics"].get("52WeekChange", {}).get("fmt", notFound),
+                "sharesShort": dat["defaultKeyStatistics"].get("sharesPercentSharesOut", {}).get("fmt", notFound),
                 },
-            "country": dat["summaryProfile"]["country"],
-            "industry": dat["summaryProfile"]["industry"]
+            "country": dat.get("summaryProfile", {}).get("country", notFound),
+            "industry": dat.get("summaryProfile", {}).get("industry", notFound)
         }
         
         
