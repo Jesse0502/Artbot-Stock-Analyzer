@@ -4,6 +4,7 @@ import yfinance as yf
 from datetime import date
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 load_dotenv()
 plt.style.use('ggplot') 
 
@@ -17,9 +18,11 @@ def get_stock_pred(param):
 
 
 def get_resonse_from_api(param):
+    TOKEN = os.getenv('RAPID_API_API')
+    
     res = get("https://yh-finance.p.rapidapi.com/stock/v2/get-summary", headers={'x-rapidapi-host': 'yh-finance.p.rapidapi.com',
 
-    'x-rapidapi-key': '9aa35d4502mshb4b1998a9a28115p1df00ejsn6edba7b9494d'}, params={'symbol': param})
+    'x-rapidapi-key': TOKEN}, params={'symbol': param})
     if res.status_code == 200:
         dat = res.json()
         
