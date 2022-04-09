@@ -38,11 +38,7 @@ def stock_info_res(avt):
                     adj = n.text
             
         stock_prediction = match_keywords_with_industry(keywords)
-        random_num = round(random() * 4)
-        if random_num % 2 == 0:
-            cmt = comment_about(adj, noun)
-        else:
-            cmt = None
+        cmt = comment_about(adj, noun)
         return {"stock": stock_prediction, "cmt": cmt}
     else:
         return None

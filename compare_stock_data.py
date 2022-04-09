@@ -23,7 +23,7 @@ def compare_stock_data(stocks):
         legends.append(i['stock'].upper())
     plt.legend(legends)
     plt.xlabel("Date", fontsize=18)
-    plt.ylabel("Close Price USD ($)", fontsize=18)
+    plt.ylabel("Normalized Close Price", fontsize=18)
     plt.savefig('fig.png')
     if len(stock_arr) < 1:
         return f"No data found for ***{', '.join(no_data_found)}***"
