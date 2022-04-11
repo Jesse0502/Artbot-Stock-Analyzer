@@ -53,11 +53,11 @@ def default_res():
     
 def help_res():
     return f"""
-*- You can ask me if a stock is a good purchase. Tag me and ask* `Should I buy AAPL stock?` or `Is KO a good buy?`
+*- You can ask me if a stock is a good purchase. Tag me and ask* `Should I buy AAPL stock?` *or* `Is KO a good buy?`
 
-*- Or ask me to compare between stocks. Tag me and type * `-compare TICKER_NAME TICKER_NAME` 
+- *Or ask me to compare between stocks. Tag me and type* `-compare TICKER_NAME TICKER_NAME` 
 
-*- I can also make a suggestion based of your pfp what industry should include in your portfolio.* Just tag me and type `-suggest`
+- *I can also make a suggestion based of your pfp what industry should include in your portfolio. Just tag me and type* `-suggest`
     """
     
 def suggest_res(avt):

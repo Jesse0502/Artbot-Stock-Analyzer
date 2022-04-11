@@ -1,3 +1,4 @@
+from pprint import pprint
 from requests import get
 from dotenv import load_dotenv
 import yfinance as yf
@@ -46,7 +47,7 @@ def get_resonse_from_api(param):
                     "year": e["date"],
                     "revenue": e["revenue"]["fmt"]
                 })
-        notFound = "No data found\t"
+        notFound = "No data found"
         result = {
             "name": dat["price"]["longName"],
             "symbol": dat["symbol"],
@@ -100,9 +101,9 @@ Shares Short:- ***{result["financial"]["sharesShort"]}***
 
 \n\n
     """
-        return {"txt": txt, "img": img}
+        return {"txt": txt}
 
-# **📰 Latest news on {result["name"]}:-**
-# {result["news"]}
     else:
         return None
+        
+        
